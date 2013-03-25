@@ -4,31 +4,27 @@ function Point2D(x,y){
 }
 
 function Edge(p1,p2){
-this.x1=p1.x;
-this.x2=p2.x;
-this.y1=p1.y;
-this.y2=p2.y;
+this.p1 = p1;
+this.p2 = p2;
 }
 
-function length(e){
-	var len=Math.sqrt(Math.pow(e.x2-e.x1,2)+Math.pow(e.y2-e.y1,2));
-	return len;
+Edge.prototype.length = function() {
+	return Math.sqrt(Math.pow((this.p2.x - this.p1.x),2) + Math.pow((this.p2.y - this.p1.y), 2)); 
 }
 
-function Triangle(e1,e2,e3){
-	this.edge1=e1;
-	this.edge2=e2;
-	this.edge3=e3;
+function Triangle (edge1,edge2,edge3) {
+	this.edge1 = edge1;
+	this.edge2 = edge2;
+	this.edge3 = edge3;
 }
 
-function perimeter(t){
-	var perimeter=length(t.edge1)+length(t.edge2)+length(t.edge3);
+Triangle.prototype.perimeter = function() {
+	var perimeter = this.edge1.length() + this.edge2.length() + this.edge3.length();
 	return perimeter;
 }
 
-function area(t){
-	var p=perimeter(t)/2;
-	var area=Math.sqrt(p*(p-length(t.edge1))*(p-length(t.edge2))*(p-length(t.edge3)));
+Triangle.prototype.euroneArea = function() {
+	var semiperimeter = this.perimeter() / 2;
+	var area = Math.sqrt((semiperimeter * (semiperimeter - this.edge1.length()) * (semiperimeter - this.edge2.length()) * (semiperimeter - this.edge3.length()) ));
 	return area;
 }
-
