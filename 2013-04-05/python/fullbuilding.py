@@ -1,5 +1,7 @@
 #1 = 0,1 m
 
+#ex 1
+
 #floor 0 pillars
 
 r_column_f0 = 1.25    #column radius is 12.5 cm
@@ -47,6 +49,7 @@ upper_square_pillars_f3 =  GRID([[-0.5,1.5,-0.5-25,-0.5,1.5,-0.5-25,-2.5,-25,2.5
 pillars3 = STRUCT([square_pillars_f3,upper_square_pillars_f3])
 pillars = STRUCT([pillars0,pillars1,pillars2,pillars3])
 
+#ex 2
 
 #floor0
 
@@ -72,6 +75,7 @@ floor_2_stairs_support = T([3])([0.1+25*2+2])(GRID([[-12.24,34.8],[-66.5,2],[2]]
 floor_2_small_offset = T([3])([0.1+25*2+2])(GRID([[-47,14.6],[-55.22,13.12],[2]]))
 floor2 = STRUCT([triangular_balcuny_floor_2,floor_2_offset,floor_2_stairs_offset,floor_2_stairs_support,floor_2_small_offset])
 
+#ex 3
 
 #floor3
 lower_floor_3 = T([3])([0.1+25*3+2*2])(GRID([[58.35,-30.8,23.25],[68.5],[2]]))
@@ -90,6 +94,8 @@ floor4 = STRUCT([upper_floor_4,lower_floor_4])
 floors = STRUCT([floor1,floor2,floor3,floor4])
 
 GRID = COMP([INSR(PROD),AA(QUOTE)])
+
+#ex 4
 
 #WEST 
 
@@ -149,7 +155,37 @@ window_1_t = T([1,3])([58.35,39])(window_1)
 
 final_windows = STRUCT(NN(3)([COLOR(BLACK)(window_1_t),T([3])([23.5])]))  #3xblack windows
 
-building = STRUCT([pillars,walls,floors])
+
+#ex 5
+
+l = 35.6
+n = 12
+g = 2
+a = 35.0/n 
+p = l/n
+
+vertex = [[0,0],[0,g+a/2.0],[p,a/2.0],[p,g+a/2.0]]
+cells = [[1,2,3,4]]
+
+
+step2D = MKPOL([vertex,cells,None])
+
+
+step3D = PROD([step2D,Q(12)])
+step3D = MAP([S1,S3,S2])(step3D)
+ramp = STRUCT(NN(n)([step3D,T([1,3])([p,a])]))
+
+stair1 = T([1,2])([35,54])(ramp)
+
+stair2 = T([1,2,3])([17.5,54,23])(ramp)
+
+stair3 = T([1,2,3])([75,54,49])(ramp)
+
+stairs =STRUCT([stair1,stair2,stair3])
+
+VIEW(stairs)
+
+building = STRUCT([pillars,floors,stairs,walls])
 
 VIEW(building)
 

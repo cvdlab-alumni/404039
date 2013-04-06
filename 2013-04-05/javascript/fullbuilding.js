@@ -1,3 +1,5 @@
+//ex1
+
 //parameters to use python-like code
 
 T = function (dims) {
@@ -111,6 +113,8 @@ pillars3 = STRUCT([square_pillars_f3,upper_square_pillars_f3])
 
 pillars = STRUCT([pillars0,pillars1,pillars2,pillars3])
 
+//ex 2
+
 //floor0
 
 floor0 = CUBOID([114,68.5,0.1])
@@ -156,6 +160,8 @@ floor4 = STRUCT([upper_floor_4,lower_floor_4])
 
 floors = STRUCT([floor0,floor1,floor2,floor3,floor4])
 
+
+//ex 3
 
 //WEST 
 
@@ -209,7 +215,7 @@ south = T([2])([68.5])(south_r)
 
 walls = STRUCT([south,north,east,west])
 
-
+//ex 4
 
 window_1 = CUBOID([25,2,10.08])
 
@@ -217,7 +223,34 @@ window_1_t = T([1,3])([58.35,39])(window_1)
 
 final_windows = STRUCT(NN(3)([COLOR([0.8, 0.4, 0.2, 0.7])(window_1_t),T([3])([23.5])]))  //3xblack windows
 
+// ex 5
 
-building = STRUCT([pillars,floors,final_windows,walls])
+l = 35.6
+n = 12
+g = 2
+a = 35.0/n 
+p = l/n
+
+vertex = [[0,0],[0,g+a/2.0],[p,a/2.0],[p,g+a/2.0]]
+cells = [[1,2,3,4]]
+
+var step2D = SIMPLICIAL_COMPLEX(vertex)([[0,2,1],[1,2,3]]);
+
+
+
+step3D = MAP([S1,S3,S2])(EXTRUDE([15])(step2D))
+
+ramp = STRUCT(NN(n)([step3D,T([1,3])([p,a])]))
+
+stair1 = T([1,2])([35,54])(ramp)
+
+stair2 = T([1,2,3])([17.5,54,23])(ramp)
+
+stair3 = T([1,2,3])([75,54,49])(ramp)
+
+stairs =STRUCT([stair1,stair2,stair3])
+
+
+building = STRUCT([pillars,floors,final_windows,walls,stairs])
 
 VIEW(building)
