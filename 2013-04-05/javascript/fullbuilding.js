@@ -242,11 +242,11 @@ step3D = MAP([S1,S3,S2])(EXTRUDE([15])(step2D))
 
 ramp = STRUCT(NN(n)([step3D,T([1,3])([p,a])]))
 
-stair1 = T([1,2])([35,54])(ramp)
+stair1 = T([1,2])([35,53])(ramp)
 
-stair2 = T([1,2,3])([17.5,54,23])(ramp)
+stair2 = T([1,2,3])([17.5,53,23])(ramp)
 
-stair3 = T([1,2,3])([75,54,49])(ramp)
+stair3 = T([1,2,3])([75,53,49])(ramp)
 
 stairs =STRUCT([stair1,stair2,stair3])
 
