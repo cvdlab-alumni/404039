@@ -183,9 +183,8 @@ stair3 = T([1,2,3])([75,54,49])(ramp)
 
 stairs =STRUCT([stair1,stair2,stair3])
 
-VIEW(stairs)
 
-building = STRUCT([pillars,floors,stairs,walls])
+building = STRUCT([pillars,floors,stairs,walls,final_windows])
 
 VIEW(building)
 
